@@ -7,7 +7,8 @@ let totalNecesario = 0;
 let totalPagado = 0;
 
 function formatearFecha(fechaISO) {
-    const fecha = new Date(fechaISO);
+    const [year, month, day] = fechaISO.split("-");
+    const fecha = new Date(year, month - 1, day);
 
     const dias = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"];
     const meses = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
