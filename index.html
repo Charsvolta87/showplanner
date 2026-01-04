@@ -50,8 +50,15 @@
 
 <section>
 <h2>Gastos</h2>
+
 <p>Total necesario: $<span id="total">0.00</span></p>
+<p>Pagado hasta ahora: $<span id="pagado">0.00</span></p>
+<p>Falta pagar: $<span id="falta">0.00</span></p>
+
+<input type="number" id="pago-input" placeholder="Ingresar pago" step="0.01">
+<button id="agregar-pago">Agregar pago</button>
 </section>
+
 
 <script src="firebase-config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>

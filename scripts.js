@@ -1,6 +1,8 @@
 
 const db = firebase.database();
 const eventosRef = db.ref("eventos");
+const pagosRef = db.ref("pagos");
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -47,6 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         document.getElementById("total").textContent = total.toFixed(2);
+        document.getElementById("falta").textContent = (total - totalPagado).toFixed(2);
+
     }
 
     eventosRef.on("value", snapshot => {
@@ -73,5 +77,30 @@ document.addEventListener("DOMContentLoaded", () => {
         eventosRef.push(nuevoEvento);
         e.target.reset();
     });
+
+    let totalPagado = 0;
+
+pagosRef.on("value", snapshot => {
+    const data = snapshot.val() || {};
+    totalPagado = Object.values(data)
+        .reduce((acc, pago) => acc + pago.monto, 0);
+
+    document.getElementById("pagado").textContent = totalPagado.toFixed(2);
+});
+document.getElementById("agregar-pago").addEventListener("click", () => {
+    const input = document.getElementById("pago-input");
+    const monto = parseFloat(input.value);
+
+    if (!isNaN(monto) && monto > 0) {
+        pagosRef.push({
+            monto: monto,
+            fecha: new Date().toISOString()
+        });
+
+        input.value = "";
+    }
+});
+
+
 
 });
