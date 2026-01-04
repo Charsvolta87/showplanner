@@ -1,5 +1,4 @@
 
-firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const eventosRef = db.ref("eventos");
 
