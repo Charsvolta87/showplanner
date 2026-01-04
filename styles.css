@@ -1,42 +1,204 @@
+/* =========================
+   VARIABLES / IDENTIDAD
+========================= */
+:root {
+    --bg-main: #0b0c10;
+    --bg-glass: rgba(255, 255, 255, 0.08);
+    --bg-glass-strong: rgba(255, 255, 255, 0.12);
+    --border-glass: rgba(255, 255, 255, 0.18);
+
+    --neon-green: #4cff8f;
+    --neon-violet: #9b5cff;
+    --text-main: #f1f1f1;
+    --text-muted: #b5b5b5;
+}
+
+/* =========================
+   RESET BÁSICO
+========================= */
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
     margin: 0;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #1a1b2e, #0b0c10 60%);
+    color: var(--text-main);
+    min-height: 100vh;
 }
+
+/* =========================
+   HEADER
+========================= */
 header {
-    background-color: #4CAF50;
-    color: white;
-    padding: 15px;
+    padding: 20px;
     text-align: center;
+    background: linear-gradient(
+        135deg,
+        var(--neon-violet),
+        var(--neon-green)
+    );
+    color: #000;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
+
+header h1 {
+    margin: 0;
+    font-size: 1.6rem;
+}
+
+/* =========================
+   SECCIONES (GLASS)
+========================= */
 section {
-    max-width: 600px;
+    max-width: 420px;
     margin: 20px auto;
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 18px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 16px;
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
-input, button {
+
+section h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: var(--neon-green);
+    letter-spacing: 0.5px;
+}
+
+/* =========================
+   INPUTS & BUTTONS
+========================= */
+input {
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border-glass);
+    background: rgba(0,0,0,0.35);
+    color: var(--text-main);
+    font-size: 0.95rem;
 }
+
+input::placeholder {
+    color: var(--text-muted);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--neon-green);
+    box-shadow: 0 0 0 2px rgba(76,255,143,0.25);
+}
+
 button {
-    background-color: #4CAF50;
-    color: white;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
     border: none;
+    background: linear-gradient(
+        135deg,
+        var(--neon-green),
+        var(--neon-violet)
+    );
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
     cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
+
+button:active {
+    transform: scale(0.97);
+    box-shadow: 0 0 20px rgba(155,92,255,0.6);
+}
+
+/* =========================
+   TABLA DE EVENTOS
+========================= */
 table {
     width: 100%;
     border-collapse: collapse;
 }
-th, td {
-    padding: 8px;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
+
+thead {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
 }
+
+th, td {
+    padding: 8px 6px;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+tbody tr:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+td input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: var(--neon-green);
+}
+
+/* =========================
+   CALENDARIO
+========================= */
 #calendar {
-    max-width: 600px;
+    max-width: 100%;
     margin: auto;
+    font-size: 0.8rem;
+}
+
+.fc {
+    background: transparent;
+}
+
+.fc-toolbar-title {
+    font-size: 1rem !important;
+    color: var(--neon-violet);
+}
+
+/* =========================
+   GASTOS / TOTALES
+========================= */
+#total,
+#pagado,
+#falta {
+    font-weight: bold;
+}
+
+#total {
+    color: var(--neon-green);
+}
+
+#pagado {
+    color: #4cc9f0;
+}
+
+#falta {
+    color: #ff4c4c;
+}
+
+/* =========================
+   DESKTOP MEJORA
+========================= */
+@media (min-width: 768px) {
+    section {
+        max-width: 600px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
 }
