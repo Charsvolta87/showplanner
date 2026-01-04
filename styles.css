@@ -148,7 +148,7 @@ tbody tr:hover {
 
 td input[type="checkbox"] {
     transform: scale(1.2);
-    accent-color: var(--neon-green);
+    accent-color: #9b5cff;
 }
 
 /* =========================
