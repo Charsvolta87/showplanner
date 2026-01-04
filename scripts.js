@@ -1,8 +1,10 @@
-
 const db = firebase.database();
 const eventosRef = db.ref("eventos");
 const pagosRef = db.ref("pagos");
 
+// 🔹 Estados globales (NO eliminan nada, solo ordenan)
+let totalNecesario = 0;
+let totalPagado = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -19,10 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
         tbody.innerHTML = "";
         calendar.removeAllEvents();
 
-        let total = 0;
+        // 🔹 antes era "let total = 0"
+        // se mantiene la lógica pero se guarda en estado global
+        totalNecesario = 0;
 
         eventos.forEach(evento => {
-            if (evento.ir) total += evento.precio;
+            if (evento.ir) totalNecesario += evento.precio;
 
             const row = document.createElement("tr");
             row.innerHTML = `
@@ -48,21 +52,26 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        document.getElementById("total").textContent = total.toFixed(2);
-        document.getElementById("falta").textContent = (total - totalPagado).toFixed(2);
+        // 🔹 salidas visuales (igual que antes, pero consistentes)
+        document.getElementById("total").textContent =
+            totalNecesario.toFixed(2);
 
+        document.getElementById("falta").textContent =
+            (totalNecesario - totalPagado).toFixed(2);
     }
 
+    // 🔹 Listener de eventos
     eventosRef.on("value", snapshot => {
         const data = snapshot.val() || {};
         const eventos = Object.keys(data).map(id => ({
             id,
             ...data[id]
-        })).sort((a,b)=> new Date(a.fecha)-new Date(b.fecha));
+        })).sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
         actualizarUI(eventos);
     });
 
+    // 🔹 Alta de evento (sin cambios funcionales)
     document.getElementById("evento-form").addEventListener("submit", e => {
         e.preventDefault();
 
@@ -78,29 +87,34 @@ document.addEventListener("DOMContentLoaded", () => {
         e.target.reset();
     });
 
-    let totalPagado = 0;
+    // 🔹 Listener de pagos
+    pagosRef.on("value", snapshot => {
+        const data = snapshot.val() || {};
 
-pagosRef.on("value", snapshot => {
-    const data = snapshot.val() || {};
-    totalPagado = Object.values(data)
-        .reduce((acc, pago) => acc + pago.monto, 0);
+        totalPagado = Object.values(data)
+            .reduce((acc, pago) => acc + pago.monto, 0);
 
-    document.getElementById("pagado").textContent = totalPagado.toFixed(2);
-});
-document.getElementById("agregar-pago").addEventListener("click", () => {
-    const input = document.getElementById("pago-input");
-    const monto = parseFloat(input.value);
+        document.getElementById("pagado").textContent =
+            totalPagado.toFixed(2);
 
-    if (!isNaN(monto) && monto > 0) {
-        pagosRef.push({
-            monto: monto,
-            fecha: new Date().toISOString()
-        });
+        // 🔹 recalcula falta SIEMPRE que cambia un pago
+        document.getElementById("falta").textContent =
+            (totalNecesario - totalPagado).toFixed(2);
+    });
 
-        input.value = "";
-    }
-});
+    // 🔹 Agregar pago (sin cambios)
+    document.getElementById("agregar-pago").addEventListener("click", () => {
+        const input = document.getElementById("pago-input");
+        const monto = parseFloat(input.value);
 
+        if (!isNaN(monto) && monto > 0) {
+            pagosRef.push({
+                monto: monto,
+                fecha: new Date().toISOString()
+            });
 
+            input.value = "";
+        }
+    });
 
 });
