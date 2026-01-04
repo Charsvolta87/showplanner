@@ -6,6 +6,24 @@ const pagosRef = db.ref("pagos");
 let totalNecesario = 0;
 let totalPagado = 0;
 
+function formatearFecha(fechaISO) {
+    const fecha = new Date(fechaISO);
+
+    const dias = ["dom", "lun", "mar", "mié", "jue", "vie", "sáb"];
+    const meses = ["ene", "feb", "mar", "abr", "may", "jun", "jul", "ago", "sep", "oct", "nov", "dic"];
+
+    const diaSemana = dias[fecha.getDay()];
+    const diaNumero = fecha.getDate();
+    const mes = meses[fecha.getMonth()];
+
+    return `
+        <div class="fecha-rock">
+            <span class="fecha-dia">${diaSemana}-${diaNumero}</span>
+            <span class="fecha-mes">${mes}</span>
+        </div>
+    `;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     const calendar = new FullCalendar.Calendar(
@@ -30,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const row = document.createElement("tr");
             row.innerHTML = `
-                <td>${evento.fecha}</td>
+                <td>${formatearFecha(evento.fecha)}</td>
                 <td>${evento.nombre}</td>
                 <td>${evento.lugar}</td>
                 <td>$${evento.precio.toFixed(2)}</td>

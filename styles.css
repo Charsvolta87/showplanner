@@ -202,3 +202,21 @@ td input[type="checkbox"] {
         font-size: 2rem;
     }
 }
+.fecha-rock {
+    text-align: center;
+    line-height: 1.1;
+}
+
+.fecha-dia {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--neon-green);
+    display: block;
+}
+
+.fecha-mes {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+}
