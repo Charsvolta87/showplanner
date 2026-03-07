@@ -180,6 +180,13 @@ background:#f59e0b;
 #agregar-pago:hover{
 background:#d97706;
 }
+#calendar{
+width:100%;
+min-height:500px;
+}
+
+
+
 
 /* RESPONSIVE */
 
@@ -255,4 +262,9 @@ background:#4f46e5 !important;
 .fc-daygrid-event{
 background:#22c55e !important;
 border:none !important;
+}
+#calendar{
+min-height:400px;
+}
+
 }
