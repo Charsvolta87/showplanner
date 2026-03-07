@@ -7,7 +7,7 @@ box-sizing:border-box;
 }
 
 body{
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+font-family: 'Inter', sans-serif;
 background: linear-gradient(135deg,#0f172a,#1e293b);
 color:white;
 min-height:100vh;

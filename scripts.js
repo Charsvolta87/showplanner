@@ -27,13 +27,25 @@ function formatearFecha(fechaISO) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const calendar = new FullCalendar.Calendar(
-        document.getElementById("calendar"), {
-            initialView: "dayGridMonth",
-            events: []
-        }
-    );
-    calendar.render();
+    const calendarEl = document.getElementById("calendar");
+
+const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: window.innerWidth < 700 ? "listMonth" : "dayGridMonth",
+    height: "auto",
+    events: []
+});
+
+calendar.render();
+
+/* 🔹 Fix responsive FullCalendar */
+setTimeout(() => {
+    calendar.updateSize();
+}, 100);
+
+/* 🔹 Recalcula cuando cambia el tamaño */
+window.addEventListener("resize", () => {
+    calendar.updateSize();
+});
 
     function actualizarUI(eventos) {
         const tbody = document.getElementById("eventos-table");
