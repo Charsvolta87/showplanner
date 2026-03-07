@@ -1,270 +1,244 @@
-/* RESET */
+/* =========================
+   VARIABLES / IDENTIDAD
+========================= */
+:root {
+    --bg-main: #0b0c10;
+    --bg-glass: rgba(255, 255, 255, 0.08);
+    --bg-glass-strong: rgba(255, 255, 255, 0.12);
+    --border-glass: rgba(255, 255, 255, 0.18);
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+    --neon-green: #4cff8f;
+    --neon-violet: #9b5cff;
+    --text-main: #f1f1f1;
+    --text-muted: #b5b5b5;
 }
 
-body{
-font-family: 'Inter', sans-serif;
-background: linear-gradient(135deg,#0f172a,#1e293b);
-color:white;
-min-height:100vh;
-padding:20px;
+/* =========================
+   RESET BÁSICO
+========================= */
+* {
+    box-sizing: border-box;
 }
 
-/* CONTENEDOR GENERAL */
-
-section{
-background: rgba(255,255,255,0.05);
-backdrop-filter: blur(10px);
-border:1px solid rgba(255,255,255,0.1);
-border-radius:12px;
-padding:20px;
-margin-bottom:20px;
-box-shadow:0 10px 25px rgba(0,0,0,0.25);
+body {
+    margin: 0;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, #1a1b2e, #0b0c10 60%);
+    color: var(--text-main);
+    min-height: 100vh;
 }
 
-/* HEADER */
-
-header{
-margin-bottom:25px;
+/* =========================
+   HEADER
+========================= */
+header {
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(
+        135deg,
+        var(--neon-violet),
+        var(--neon-green)
+    );
+    color: #000;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
-.header-content{
-display:flex;
-justify-content:space-between;
-align-items:center;
-flex-wrap:wrap;
-gap:15px;
+header h1 {
+    margin: 0;
+    font-size: 1.6rem;
 }
 
-h1{
-font-size:28px;
-font-weight:600;
-letter-spacing:-1px;
+/* =========================
+   SECCIONES (GLASS)
+========================= */
+section {
+    max-width: 420px;
+    margin: 20px auto;
+    padding: 18px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 16px;
+    border: 1px solid var(--border-glass);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
 }
 
-h2{
-font-size:20px;
-margin-bottom:15px;
-font-weight:500;
+section h2 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: var(--neon-green);
+    letter-spacing: 0.5px;
 }
 
-p{
-opacity:.8;
+/* =========================
+   INPUTS & BUTTONS
+========================= */
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--border-glass);
+    background: rgba(0,0,0,0.35);
+    color: var(--text-main);
+    font-size: 0.95rem;
 }
 
-/* BOTON CONCERTBOOK */
-
-.showsplanner-btn{
-background:#6366f1;
-color:white;
-padding:10px 16px;
-border-radius:8px;
-text-decoration:none;
-font-weight:500;
-transition:.2s;
+input::placeholder {
+    color: var(--text-muted);
 }
 
-.showsplanner-btn:hover{
-background:#4f46e5;
-transform:translateY(-2px);
+input:focus {
+    outline: none;
+    border-color: var(--neon-green);
+    box-shadow: 0 0 0 2px rgba(76,255,143,0.25);
 }
 
-/* FORMULARIO */
-
-form{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-gap:10px;
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(
+        135deg,
+        var(--neon-green),
+        var(--neon-violet)
+    );
+    color: #000;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-input{
-padding:10px;
-border-radius:8px;
-border:none;
-background:rgba(255,255,255,0.1);
-color:white;
+button:active {
+    transform: scale(0.97);
+    box-shadow: 0 0 20px rgba(155,92,255,0.6);
 }
 
-input::placeholder{
-color:rgba(255,255,255,.5);
+/* =========================
+   TABLA DE EVENTOS
+========================= */
+table {
+    width: 100%;
+    border-collapse: collapse;
 }
 
-button{
-background:#22c55e;
-border:none;
-padding:10px;
-border-radius:8px;
-color:white;
-font-weight:600;
-cursor:pointer;
-transition:.2s;
+thead {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
 }
 
-button:hover{
-background:#16a34a;
-transform:translateY(-1px);
+th, td {
+    padding: 8px 6px;
+    font-size: 0.85rem;
+    text-align: left;
 }
 
-/* TABLA */
-
-table{
-width:100%;
-border-collapse:collapse;
+tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
-th{
-text-align:left;
-font-weight:500;
-opacity:.7;
-padding-bottom:10px;
+tbody tr:hover {
+    background: rgba(255,255,255,0.05);
 }
 
-td{
-padding:10px 0;
-border-top:1px solid rgba(255,255,255,0.08);
+td input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #9b5cff;
 }
 
-/* FECHA ROCK */
-
-.fecha-rock{
-display:flex;
-flex-direction:column;
-font-weight:600;
+/* =========================
+   CALENDARIO
+========================= */
+#calendar {
+    max-width: 100%;
+    margin: auto;
+    font-size: 0.8rem;
 }
 
-.fecha-dia{
-font-size:14px;
+.fc {
+    background: transparent;
 }
 
-.fecha-mes{
-font-size:12px;
-opacity:.7;
+.fc-toolbar-title {
+    font-size: 1rem !important;
+    color: var(--neon-violet);
 }
 
-/* CALENDARIO */
-
-#calendar{
-background:white;
-border-radius:10px;
-padding:10px;
-color:black;
+/* =========================
+   GASTOS / TOTALES
+========================= */
+#total,
+#pagado,
+#falta {
+    font-weight: bold;
 }
 
-/* GASTOS */
-
-#gastos{
-display:flex;
-flex-direction:column;
-gap:10px;
+#total {
+    color: var(--neon-green);
 }
 
-#gastos p{
-font-size:16px;
+#pagado {
+    color: #4cc9f0;
 }
 
-/* PAGOS */
-
-#pago-input{
-margin-top:10px;
+#falta {
+    color: #ff4c4c;
 }
 
-#agregar-pago{
-margin-top:10px;
-background:#f59e0b;
+/* =========================
+   DESKTOP MEJORA
+========================= */
+@media (min-width: 768px) {
+    section {
+        max-width: 600px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+    }
+}
+.fecha-rock {
+    text-align: center;
+    line-height: 1.1;
 }
 
-#agregar-pago:hover{
-background:#d97706;
-}
-#calendar{
-width:100%;
-min-height:500px;
-}
-
-
-
-
-/* RESPONSIVE */
-
-@media (max-width:900px){
-
-table thead{
-display:none;
+.fecha-dia {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--neon-green);
+    display: block;
 }
 
-table,tbody,tr,td{
-display:block;
-width:100%;
+.fecha-mes {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 1px;
 }
 
-tr{
-margin-bottom:15px;
-padding-bottom:10px;
-border-bottom:1px solid rgba(255,255,255,.1);
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
-td{
-display:flex;
-justify-content:space-between;
-padding:6px 0;
+.showsplanner-btn {
+  background: linear-gradient(45deg, #ff416c, #ff4b2b);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s ease;
 }
 
-td::before{
-font-weight:600;
-opacity:.6;
-}
-
-td:nth-child(1)::before{content:"Fecha";}
-td:nth-child(2)::before{content:"Evento";}
-td:nth-child(3)::before{content:"Lugar";}
-td:nth-child(4)::before{content:"Precio";}
-td:nth-child(5)::before{content:"Voy";}
-
-}
-
-/* MOBILE EXTRA */
-
-@media (max-width:600px){
-
-body{
-padding:12px;
-}
-
-h1{
-font-size:22px;
-}
-
-section{
-padding:15px;
-}
-
-}
-
-/* FULLCALENDAR AJUSTES */
-
-.fc-toolbar-title{
-font-size:18px !important;
-}
-
-.fc-button{
-background:#6366f1 !important;
-border:none !important;
-}
-
-.fc-button:hover{
-background:#4f46e5 !important;
-}
-
-.fc-daygrid-event{
-background:#22c55e !important;
-border:none !important;
-}
-#calendar{
-min-height:400px;
-}
-
+.showsplanner-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 75, 43, 0.6);
 }
