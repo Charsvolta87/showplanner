@@ -152,10 +152,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 🔹 BUSCADOR EN TIEMPO REAL
-    document.getElementById("busqueda").addEventListener("input", e => {
-        filtrarEventos(e.target.value);
-    });
-
+    document.getElementById("searchInput").addEventListener("input", e => {
+    filtrarEventos(e.target.value);
+});
 });
 
 function normalizarTexto(texto) {
