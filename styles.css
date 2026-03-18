@@ -245,18 +245,17 @@ td input[type="checkbox"] {
 
 
 
-
 .search-container {
   display: flex;
   justify-content: center;
-  margin: 20px;
+  margin: 20px 0;
 }
 
 #searchInput {
   width: 90%;
   max-width: 500px;
-  padding: 12px 16px;
-  border-radius: 25px;
+  padding: 12px 18px;
+  border-radius: 30px;
   border: 1px solid #ccc;
   font-size: 16px;
   outline: none;
@@ -264,5 +263,6 @@ td input[type="checkbox"] {
 }
 
 #searchInput:focus {
-  border-color: #666;
+  border-color: #333;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
 }
