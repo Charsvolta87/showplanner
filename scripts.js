@@ -140,3 +140,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 });
+
+function filtrarEventos(texto) {
+    const filtro = texto.toLowerCase();
+
+    const filtrados = eventosGlobales.filter(ev => {
+        return (
+            ev.nombre.toLowerCase().includes(filtro) ||
+            ev.lugar.toLowerCase().includes(filtro) ||
+            ev.fecha.includes(filtro) ||
+            ev.precio.toString().includes(filtro)
+        );
+    });
+
+    actualizarUI(filtrados);
+}
