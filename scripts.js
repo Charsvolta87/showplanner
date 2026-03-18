@@ -1,6 +1,7 @@
 const db = firebase.database();
 const eventosRef = db.ref("eventos");
 const pagosRef = db.ref("pagos");
+let eventosGlobales = [];
 
 // 🔹 Estados globales (NO eliminan nada, solo ordenan)
 let totalNecesario = 0;
@@ -81,14 +82,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 🔹 Listener de eventos
     eventosRef.on("value", snapshot => {
-        const data = snapshot.val() || {};
-        const eventos = Object.keys(data).map(id => ({
-            id,
-            ...data[id]
-        })).sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+    const data = snapshot.val() || {};
+    const eventos = Object.keys(data).map(id => ({
+        id,
+        ...data[id]
+    })).sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
-        actualizarUI(eventos);
-    });
+    eventosGlobales = eventos; // 👈 guardar copia
+
+    actualizarUI(eventos);
+});
 
     // 🔹 Alta de evento (sin cambios funcionales)
     document.getElementById("evento-form").addEventListener("submit", e => {
@@ -136,21 +139,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-});
-
-const searchInput = document.getElementById("searchInput");
-
-searchInput.addEventListener("keyup", function () {
-  const filter = searchInput.value.toLowerCase();
-  const cards = document.querySelectorAll(".ticket-card");
-
-  cards.forEach(card => {
-    const text = card.innerText.toLowerCase();
-
-    if (text.includes(filter)) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
 });
