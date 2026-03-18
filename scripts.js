@@ -156,4 +156,11 @@ document.addEventListener("DOMContentLoaded", () => {
         filtrarEventos(e.target.value);
     });
 
+    function normalizarTexto(texto) {
+    return texto
+        .toLowerCase()
+        .normalize("NFD") // separa acentos
+        .replace(/[\u0300-\u036f]/g, ""); // elimina acentos
+}
+
 });
