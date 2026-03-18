@@ -1,11 +1,11 @@
 const db = firebase.database();
 const eventosRef = db.ref("eventos");
 const pagosRef = db.ref("pagos");
-let eventosGlobales = [];
 
-// 🔹 Estados globales (NO eliminan nada, solo ordenan)
+// 🔹 Estados globales
 let totalNecesario = 0;
 let totalPagado = 0;
+let eventosGlobales = []; // 👈 para búsqueda
 
 function formatearFecha(fechaISO) {
     const [year, month, day] = fechaISO.split("-");
@@ -41,8 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
         tbody.innerHTML = "";
         calendar.removeAllEvents();
 
-        // 🔹 antes era "let total = 0"
-        // se mantiene la lógica pero se guarda en estado global
         totalNecesario = 0;
 
         eventos.forEach(evento => {
@@ -72,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         });
 
-        // 🔹 salidas visuales (igual que antes, pero consistentes)
         document.getElementById("total").textContent =
             totalNecesario.toFixed(2);
 
@@ -80,20 +77,36 @@ document.addEventListener("DOMContentLoaded", () => {
             (totalNecesario - totalPagado).toFixed(2);
     }
 
+    // 🔹 FILTRO
+    function filtrarEventos(texto) {
+        const filtro = texto.toLowerCase();
+
+        const filtrados = eventosGlobales.filter(ev => {
+            return (
+                ev.nombre.toLowerCase().includes(filtro) ||
+                ev.lugar.toLowerCase().includes(filtro) ||
+                ev.fecha.includes(filtro) ||
+                ev.precio.toString().includes(filtro)
+            );
+        });
+
+        actualizarUI(filtrados);
+    }
+
     // 🔹 Listener de eventos
     eventosRef.on("value", snapshot => {
-    const data = snapshot.val() || {};
-    const eventos = Object.keys(data).map(id => ({
-        id,
-        ...data[id]
-    })).sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+        const data = snapshot.val() || {};
+        const eventos = Object.keys(data).map(id => ({
+            id,
+            ...data[id]
+        })).sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
 
-    eventosGlobales = eventos; // 👈 guardar copia
+        eventosGlobales = eventos; // 👈 guardar todos
 
-    actualizarUI(eventos);
-});
+        actualizarUI(eventos);
+    });
 
-    // 🔹 Alta de evento (sin cambios funcionales)
+    // 🔹 Alta de evento
     document.getElementById("evento-form").addEventListener("submit", e => {
         e.preventDefault();
 
@@ -119,12 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("pagado").textContent =
             totalPagado.toFixed(2);
 
-        // 🔹 recalcula falta SIEMPRE que cambia un pago
         document.getElementById("falta").textContent =
             (totalNecesario - totalPagado).toFixed(2);
     });
 
-    // 🔹 Agregar pago (sin cambios)
+    // 🔹 Agregar pago
     document.getElementById("agregar-pago").addEventListener("click", () => {
         const input = document.getElementById("pago-input");
         const monto = parseFloat(input.value);
@@ -139,19 +151,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-});
-
-function filtrarEventos(texto) {
-    const filtro = texto.toLowerCase();
-
-    const filtrados = eventosGlobales.filter(ev => {
-        return (
-            ev.nombre.toLowerCase().includes(filtro) ||
-            ev.lugar.toLowerCase().includes(filtro) ||
-            ev.fecha.includes(filtro) ||
-            ev.precio.toString().includes(filtro)
-        );
+    // 🔹 BUSCADOR EN TIEMPO REAL
+    document.getElementById("busqueda").addEventListener("input", e => {
+        filtrarEventos(e.target.value);
     });
 
-    actualizarUI(filtrados);
-}
+});
