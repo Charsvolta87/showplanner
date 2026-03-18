@@ -79,19 +79,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 🔹 FILTRO
     function filtrarEventos(texto) {
-        const filtro = texto.toLowerCase();
+    const filtro = normalizarTexto(texto);
 
-        const filtrados = eventosGlobales.filter(ev => {
-            return (
-                ev.nombre.toLowerCase().includes(filtro) ||
-                ev.lugar.toLowerCase().includes(filtro) ||
-                ev.fecha.includes(filtro) ||
-                ev.precio.toString().includes(filtro)
-            );
-        });
+    const filtrados = eventosGlobales.filter(ev => {
+        return (
+            normalizarTexto(ev.nombre).includes(filtro) ||
+            normalizarTexto(ev.lugar).includes(filtro) ||
+            normalizarTexto(ev.fecha).includes(filtro) ||
+            normalizarTexto(ev.precio.toString()).includes(filtro)
+        );
+    });
 
-        actualizarUI(filtrados);
-    }
+    actualizarUI(filtrados);
+}
 
     // 🔹 Listener de eventos
     eventosRef.on("value", snapshot => {
